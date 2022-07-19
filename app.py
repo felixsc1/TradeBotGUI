@@ -3,8 +3,8 @@ from st_aggrid import AgGrid
 import json
 import pandas as pd
 import sys
-sys.path.insert(0, 'C:/GitRepos/TradeBotGUI/scripts/Strategy')
-sys.path.insert(0, 'C:/GitRepos/TradeBotGUI/scripts')
+sys.path.insert(0, './scripts/Strategy')
+sys.path.insert(0, './scripts')
 
 # Streamlit Configuration
 st.set_page_config(
@@ -43,16 +43,17 @@ with col1_a:
 with col2_a:
     st.text("   ")
     st.text("   ")
-    if st.button("Update Price Data"):
-        from func_get_symbols import get_tradeable_symbols
-        from func_prices_json import store_price_history
-        sym_response = get_tradeable_symbols(rebate=False)
-        # output will be huge json, may be laggy
-        st.json(sym_response)
-        if len(sym_response) > 0:
-            store_price_history(sym_response)
-            st.text(
-                f"Price history of {len(sym_response)} tradeable pairs stored as 1_price_list.json")
+    with st.spinner('Downloading price data. This can take a while...'):
+        if st.button("Update Price Data"):
+            from func_get_symbols import get_tradeable_symbols
+            from func_prices_json import store_price_history
+            sym_response = get_tradeable_symbols(rebate=False)
+            # output will be huge json, may be laggy
+            st.json(sym_response)
+            if len(sym_response) > 0:
+                store_price_history(sym_response)
+                st.text(
+                    f"Price history of {len(sym_response)} tradeable pairs stored")
 
 
 """
@@ -74,13 +75,13 @@ To find potential opportunities:
 
     """
 
-
-if st.button("Calculate Cointegration"):
-    from func_cointegration import get_cointegrated_pairs
-    with open("1_price_list.json") as json_file:
-        price_data = json.load(json_file)
-        if len(price_data) > 0:
-            coint_pairs = get_cointegrated_pairs(price_data)
+with st.spinner('Please wait. This can take a while...'):
+    if st.button("Calculate Cointegration"):
+        from func_cointegration import get_cointegrated_pairs
+        with open("1_price_list.json") as json_file:
+            price_data = json.load(json_file)
+            if len(price_data) > 0:
+                coint_pairs = get_cointegrated_pairs(price_data)
 
 if st.button("Show Results"):
     try:
