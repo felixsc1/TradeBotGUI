@@ -85,7 +85,7 @@ with st.spinner('Please wait. This can take a while...'):
 
 if st.button("Show Results"):
     try:
-        coint_pairs = pd.read_csv("2_cointegrated_pairs.csv")
+        coint_pairs = pd.read_csv("2_cointegrated_pairs.csv", index_col=[0])
         AgGrid(coint_pairs)
     except:
         st.text("No data found. Press button Calculate Cointegration")

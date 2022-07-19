@@ -4,13 +4,15 @@ An easy-to-use web app to find crypto arbitrage opportunities and perform backte
 
 The goal for me was to learn about the [streamlit](https://streamlit.io/) library, a powerful tool to create interactive python apps. Also, it simplifies and automates many steps of my previous statistical arbitrage scripts (see [this repo](https://github.com/felixsc1/StatisticalArbitrage) for more details how it works).
 
-## Installation
+## Getting Started
 
 `pip install -r requirements.txt` (tested under python 3.9)
 
 from the main folder start the app with `streamlit run app.py`
 
-## Usage
+Alternatively, you can try out the app without any installation directly on the [streamlit cloud](https://felixsc1-tradebotgui-app-vip1ly.streamlitapp.com/). 🥳
+
+## App Usage
 
 - Fetch all tradeable USDT-Coin pairs from the bybit futures market along with their historic price data.
   ![Step 1](img/step1.PNG)
